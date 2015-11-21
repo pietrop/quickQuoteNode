@@ -21,7 +21,7 @@ config.spokendata.userid 		=	process.env.SPOKENDATA_USERID		|| ;
 config.spokendata.apitoken 		=	process.env.SPOKENDATA_APITOKEN		|| "";
 
 config.twitter.consumer_key 	=	process.env.TWITTER_CONSUMER_KEY 	|| "";
-config.twitter.consumer_secret 	= 	process.env.TWITTER_CONSUMER_SECRET || 'uwNIEWby6Zz9NcAOo7zta0UhzYxbGxpwQPlqs2WK4VuLrRLCWk';
+config.twitter.consumer_secret 	= 	process.env.TWITTER_CONSUMER_SECRET || "";
 config.twitter.token 			=	process.env.TWITTER_TOKEN 			|| "";
 config.twitter.token_secret		= 	process.env.TWITTER_SECRET 			|| "";
 

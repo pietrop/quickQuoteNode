@@ -1,5 +1,7 @@
+Work in progress
+
 # quickQuoteNode
-A Node based implementation of quickQuote, exporting to twitter video API
+A Node based implementation of quickQuote, exporting to twitter video API. Importing from a video or a live video stream.
 
 [Go here for original ruby on rails implementation that exports html embed code](http://times.github.io/quickQuote/).
 
@@ -8,13 +10,11 @@ A Node based implementation of quickQuote, exporting to twitter video API
 
 Config file is in git ignore, but the following code create one for your project. 
 
-```
+```js
 var config = {};
 
 config.twitter = {};
 config.spokendata={};
-
-
 
 config.spokendata.baseurl 		=	process.env.SPOKENDATA_BASEURL 		|| "";
 config.spokendata.userid 		=	process.env.SPOKENDATA_USERID		|| ;
@@ -34,3 +34,5 @@ module.exports = config;
 ```bash
 npm install
 ```
+
+

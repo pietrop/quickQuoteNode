@@ -1,0 +1,16 @@
+<!-- hypertranscript.ejs to render hypertranscript span tags iterating over hypertranscript's json object -->
+<div class="transcriptionContainer">
+<article class="transcription">
+	<!-- use <section> for different speakers if  -->
+	<p class="line">
+	<% for(var i=0; i < hypertranscript.words.length; i++ ){ %>
+		<% var word = hypertranscript.words[i]; %>
+		<span class="transcriptWords" id=<%= word.id %> startTime=<%= word.startTime %> endTime=<%= word.endTime %> ><%= word.text %></span>
+			<% if (word.text.indexOf(".")!= -1){ %>
+				<!-- if punctuation is present then closes p tag -->
+				</p><p>
+			<% } %>
+		<% }%>
+</article>
+</div> <!-- transcriptionContainer -->
+<!-- transcript interactivity -->

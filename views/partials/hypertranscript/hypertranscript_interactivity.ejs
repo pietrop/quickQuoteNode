@@ -1,0 +1,141 @@
+<!-- 
+includes js scripts that makes hypertranscript interactive with video on client side
+-->
+<script>
+//////////////////////////////////////////////////////////
+//CLICKABLE WORDS/SPAN TAG
+var makewordClickVideo = function(wordClass,videoId){
+  // clickable words/span tag
+  var words = document.getElementsByClassName(wordClass);
+    var transcriptVideo = document.getElementById(videoId);
+
+    var clickWord = function() {
+      var wordStartTime = this.getAttribute("startTime");
+    transcriptVideo.currentTime= wordStartTime ;
+    transcriptVideo.play();
+    // console.log(attribute);
+  };
+  //adds event listener to all words/span tags in transcript
+  for(var i=0;i<words.length;i++){
+    words[i].addEventListener('click', clickWord, false);
+  }
+
+};
+//initialised
+makewordClickVideo('transcriptWords','transcriptVideo');
+
+//////////////////////////////////////////////////////////
+// COLORHILIGHT AS VIDEO PLAYS 
+//needs color span.transcriptWords.not-read to be defined, as well as span.transcriptWords.read.
+var hilightWordsOnPlay = function(wordClass,videoId){
+  var words = document.getElementsByClassName(wordClass);
+  var transcriptVideo = document.getElementById(videoId);
+
+  //event listener on video
+  transcriptVideo.ontimeupdate = function() {
+    hilightCurrent();
+    //next two lines make call to sync scroll.
+    var currentTimeInSeconds = transcriptVideo.currentTime;//
+    scrollText(currentTimeInSeconds);//
+  };
+  //hilight current word
+  function hilightCurrent() {
+  // Display the current position of the audio in a <p> element with id="demo"
+  var currentTimeInSeconds = transcriptVideo.currentTime;
+  // console.log(transcriptVideo.currentTime);
+    if (currentTimeInSeconds !== 0 ){
+      for (var i=0 ; i<words.length; i++){
+        var word =  words[i];
+        var wordStartTime = word.getAttribute("startTime");
+         if (wordStartTime < currentTimeInSeconds){
+            word.classList.add("not-read");
+            word.classList.remove("not-read");
+          }else {
+            // otherwise do the opposite
+            word.classList.remove("read");
+            word.classList.add("not-read");
+         }
+      }
+    }
+  }
+};
+//initialise
+hilightWordsOnPlay('transcriptWords','transcriptVideo');
+//////////////////////////////////////////////////////////
+//SEARCH 
+
+//TODO: needs to refactor into method taking in args id of input field, class of span tags, and remove jquery.
+//also optimise search, to search across span tags
+
+    $("#searchTranscript").keypress(function(){
+        var txt = $('#searchTranscript').val();
+        console.log(txt);
+        if (txt == ""){
+            // $( '.line' ).css( "background-color", "" );
+            $( '.transcriptWords' ).css( "background-color", "" );
+            $( '.transcriptWords' ).css( "font-weight", "" );
+        }else {
+            // $( '.line' ).css( "background-color", "" );
+            $( '.transcriptWords' ).css( "background-color", "" );
+            $( '.transcriptWords' ).css( "font-weight", "" );          
+            $( '.transcriptWords:contains("'+txt+'")' ).css( "font-weight", "bold" );
+           $( 'p .transcriptWords:contains("'+txt+'")' ).css( "background-color", "yellow" );
+        }
+    });
+    $("#searchTranscript").keyup(function(){
+        var txt = $('#searchTranscript').val();
+        console.log(txt);
+        if (txt === ""){
+            // $( '.line' ).css( "background-color", "" );
+            $( '.transcriptWords' ).css( "background-color", "" );
+            $( '.transcriptWords' ).css( "font-weight", "" );
+        }else {
+            // $( '.line' ).css( "background-color", "" );
+            $( '.transcriptWords' ).css( "background-color", "" );
+            $( '.transcriptWords' ).css( "font-weight", "" );
+            $( '.transcriptWords:contains("'+txt+'")' ).css( "font-weight", "bold" );
+            $( 'p .transcriptWords:contains("'+txt+'")' ).css( "background-color", "yellow" );
+        }
+    });
+//////////////////////////////////////////////////////////
+// SYNC SCROLL
+//function to sync the text scroll in the transcription div with the playhead position.
+//needs to be refactored to remove jquery
+
+var scrollText = function(currentTimeInSeconds){
+//if we are not at the beginning of the video or the video as not started
+    if (currentTimeInSeconds !== 0 ){
+        //to grab the current span
+        //NB the granularity at which video js gives you current time, would struggle to give you a much using decimal places.
+        //get the floor of the current Time, eliminate decimal places, to make comparison easier with span m time attributes
+        var currenTimeFloor = Math.floor(currentTimeInSeconds);
+        //make an array of all the times attribute in the span tags
+        var mSpanTimesArray = $(".transcription").find("span").map(function(){return $(this).attr("startTime");}).get();
+        //for that array remove decimal places, to make an easier comparison with current time number,
+        var mSpanTimesArrayFloor = $.map( mSpanTimesArray, function( a ) {
+            return Math.floor(a);
+        });
+
+        //if currenTimeFloor in array of spans time floor
+        if ($.inArray(currenTimeFloor, mSpanTimesArrayFloor) !== -1){
+            //get spans time with decimal places using currenTimeFloor inArray of spans time floor ->returns index
+            var index = $.inArray(currenTimeFloor, mSpanTimesArrayFloor);
+            //use the index to get the current span m time attribute.
+            var currentSpanTime  = mSpanTimesArray[index];
+            //using the current span time to find the span in the transcription
+            //using `.position()` to get position attribute
+            //calling top to get distance
+            var current = $('.transcription').find("span[startTime='"+currentSpanTime+"']").position().top;
+            //div transcription is set to scroll in css
+            //scrollTop() can take argument of where to scroll it to.
+            //scrollTop() without argument returns current position
+            // adding current span top position to transcription div position moves transcription scroll to current line
+            var offset=50;
+            $('.transcription').scrollTop($('.transcription').scrollTop() + current - offset);
+        }//if array
+    }//!==0
+}
+//initialise
+//initialised inside hilightWordsOnPlay video on play time update
+//////////////////////////////////////////////////////////
+</script>

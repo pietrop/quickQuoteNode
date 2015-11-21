@@ -1,0 +1,63 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><%= locals.appdetails.appname %></a>
+      <script>
+      console.log(<%= locals.appdetails %>)
+      </script>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+      <ul class="nav navbar-nav">
+        <li><a href="/hypertranscripts/">Videos <span class="sr-only">(current)</span></a></li>
+        <li><a href="/hypertranscripts/new">New </a></li>
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+      	<!-- Export -->
+      	<% if(locals.hypertranscript){ %>
+        <li class="active" class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Export <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+    		 <li><a href="#">Json</a></li>
+            <li class="divider"></li>
+             <li><a href="#">Text</a></li>
+          </ul>
+        </li>
+	<% }else if(locals.paperedit){ %>
+	<li class="active" class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Export <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">EDL</a></li>
+            <li><a href="#">XML</a></li>
+            <li><a href="#">Json</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Video</a></li>
+            <li class="divider"></li>
+             <li><a href="#">Text</a></li>
+          </ul>
+        </li>
+	<% }%>
+	<!-- End export -->
+
+       <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Login <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Logout</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Signup</a></li>
+             <li class="divider"></li>
+             <li><a href="#">setting</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

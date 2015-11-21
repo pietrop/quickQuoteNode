@@ -1,0 +1,92 @@
+1
+00:00:00,400 --> 00:00:05,990
+Once you have a Map Function returning the data you want from CouchDB, you can save it as a view.
+
+2
+00:00:06,000 --> 00:00:09,730
+Let's create a view on this dataset so we can use it again later.
+
+3
+00:00:09,740 --> 00:00:12,320
+Navigate to the restaurant database.
+
+4
+00:00:12,330 --> 00:00:18,279
+If it's not already selected, select Temporary View from the dropdown.
+
+5
+00:00:18,290 --> 00:00:21,150
+It saved the Map Function from our previous Temporary View.
+
+6
+00:00:21,160 --> 00:00:27,750
+If you don't already have this code in place, copy it in and click Run.
+
+7
+00:00:27,760 --> 00:00:33,110
+We want to save this view, so we have all the content except for the page with the hours.
+
+8
+00:00:33,120 --> 00:00:38,780
+Click the Save As button, and then type in the name of the design document and the view name.
+
+9
+00:00:38,790 --> 00:00:43,220
+The design document is something we can use to build an application with later.
+
+10
+00:00:43,230 --> 00:00:52,560
+I'm going to name this design document pages and I'm going to name this view without_hours.
+
+11
+00:00:52,570 --> 00:00:59,450
+So now you'll notice that the View dropdown has pages, our design document, and without_hours,
+
+12
+00:00:59,460 --> 00:01:02,700
+the name of the view.
+
+13
+00:01:02,710 --> 00:01:06,740
+We can go to all documents or we can switch to our view.
+
+14
+00:01:06,750 --> 00:01:10,869
+We can also get to a JSON- formatted version of this data.
+
+15
+00:01:10,880 --> 00:01:18,850
+Remove everything from utils to the question mark, and then hit Enter.
+
+16
+00:01:18,860 --> 00:01:24,190
+So now we have the ID for each document as well as the key and the value.
+
+17
+00:01:24,200 --> 00:01:26,429
+We can also filter this view.
+
+18
+00:01:26,440 --> 00:01:32,670
+At the end of the URL, add a question mark, type in key, type equals, and then within
+
+19
+00:01:32,680 --> 00:01:37,369
+quotes, type Delivery.
+
+20
+00:01:37,380 --> 00:01:42,229
+Now the view is only showing the document that matches the key delivery.
+
+21
+00:01:42,240 --> 00:01:45,800
+Views provide a permanent place where Map Functions can be stored and run.
+
+22
+00:01:45,810 --> 00:01:49,830
+With a View function in place, not only do you gain an endpoint for using the data in
+
+23
+00:01:49,840 --> 00:01:59,840
+your application, you're also able to further filter it by supplying a key.
+

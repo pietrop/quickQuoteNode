@@ -1,0 +1,30 @@
+/*Custom CSS for this project*/
+
+/*navbar spacing*/
+body { 
+	padding-top: 70px; 
+}
+
+/* TRANSCRIPT STYLE */
+/* cursor as pointer for clickable words*/
+.transcriptWords {
+    cursor: pointer;
+}
+
+/*for color hilight change of words whle video is playing*/
+span.transcriptWords.not-read  {
+    color: gray;
+}
+span.transcriptWords.read {
+    color: black;
+}
+/* auto scroll inside text container, with responsive height
+http://stackoverflow.com/questions/1575141/make-div-100-height-of-browser-window */
+.transcriptionContainer {
+    height: 80vh ;
+    overflow: hidden;
+}
+article.transcription {
+    height: 100%;
+    overflow-y: scroll;
+}

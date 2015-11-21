@@ -1,0 +1,200 @@
+<!-- 
+Client side hypertranscript select
+TODO: detects html elements of selection
+checks against hypertranscript json on client side 
+and returns word objects in range?
+ -->
+<script>
+/* *
+ * Function that when selecting text from transcription populates the select quote form input fields.
+ * Author, Quote Text, Time in, Time out, Duration.
+ *
+ * It does so by creating a range.
+ * reads the time attribute from the word element.
+ * Compares timecode in and time code out and inverts them if selection has been made from bottom to top.
+ * Populates the Quote Select form input fields.
+ *
+ * */
+
+$(function() {
+    'use strict';
+    var allowedTwitterVideoTime= 30; //seconds for average user but could also be 2 min for special accounts
+    //TODO: add radio button option 30 or 2 min.
+
+    // select quote fills in quote text area details
+    var quote;
+    $(".transcription").mouseup(function() {
+        // clear quote 140 char erro message on new selection
+        var notice  =  document.getElementById("validationNotice");
+        notice.innerHTML = '';
+        ////
+        var selection;
+        console.log("selection made");
+        if (window.getSelection) {
+            selection = window.getSelection();
+        } else if (document.selection) {
+            selection = document.selection.createRange();
+        }
+        quote = selection.toString();
+        //removes new lines divisions in the text of the quote
+        quote = quote.replace(/(\r\n|\n|\r)/gm,"");
+        //capitalize quote, and adds dot at end of line
+        quote = quote.charAt(0).toUpperCase() + quote.slice(1)+".";
+        
+        var characters = document.getElementById('characters');
+        // $("#characters").val(quote.length);
+        characters.value = quote.length;
+///////////////////// to update count of char of text area when user types in it
+var oldVal = "";
+$("#textQuote").on("change keyup paste", function() {
+    var currentVal = $(this).val();
+    if(currentVal == oldVal) {
+        return; //check to prevent multiple simultaneous triggers
+    }
+    
+    oldVal = currentVal;
+    //action to be performed on textarea changed
+    // alert("changed!");
+    characters.value = currentVal.length;
+});
+/////////////////////
+
+
+        if(quote.length<140){
+        $("#textQuote").val(quote);
+        }else{
+            console.log("selection over 140");
+        var notice  =  document.getElementById("validationNotice");
+        var over140CharText = document.createTextNode("To export to twitter select less then 140 characters");
+        var para = document.createElement("p");
+        para.setAttribute("class", "text-warning");
+        para.appendChild(over140CharText);
+        notice.appendChild(para);
+        }
+
+        //first in seleciton
+        var firstInSeleciton =  selection.focusNode.parentNode;
+        //last in selection
+        var lastInSelection = selection.anchorNode.parentNode;
+
+        var rangeObject = getRangeObject(selection);
+        function getRangeObject(selectionObject) {
+            if (selectionObject.getRangeAt)
+                return selectionObject.getRangeAt(0);
+            else { // Safari!
+                var range = document.createRange();
+                range.setStart(selectionObject.anchorNode,selectionObject.anchorOffset);
+                range.setEnd(selectionObject.focusNode,selectionObject.focusOffset);
+                return range;
+            }
+        }
+
+        var selection_in;
+        var selection_out;
+
+        var startID;
+        var endID;
+        //startContainer
+        if (rangeObject.startContainer.parentNode.className == "line"){
+            // selection_in  =  rangeObject.startContainer.parentNode.firstElementChild.attributes[1].value;
+            selection_in  = rangeObject.startContainer.previousElementSibling.getAttribute("startTime");
+             startID=rangeObject.startContainer.previousElementSibling.getAttribute("id");
+            console.log("flag1");
+            // //////////////////
+        }else if(rangeObject.startContainer.parentNode.className == "word read" || rangeObject.startContainer.parentNode.className == "word not-read"){
+            var selection_in= rangeObject.startContainer.getAttribute("starttime");
+             startID=rangeObject.startContainer.getAttribute("id");
+             console.log("flag2");
+        }else{
+            console.log("not a line not a word");
+            var selection_in= rangeObject.startContainer.parentNode.getAttribute("starttime");
+            startID= rangeObject.startContainer.parentNode.getAttribute("id");
+             console.log("flag3");
+        }
+
+        //endContainer
+        if (rangeObject.endContainer.parentNode.className == "line"){
+            //selection_out  =  rangeObject.endContainer.parentNode.firstElementChild.attributes[2].value;
+            selection_out  = rangeObject.endContainer.previousElementSibling.getAttribute("starttime");
+            endID = rangeObject.endContainer.previousElementSibling.getAttribute("id");
+             console.log("flag4");
+             // //////////////////
+        }else if(rangeObject.endContainer.parentNode.className == "word read" || rangeObject.endContainer.parentNode.className == "word not-read"){
+            var selection_out= rangeObject.endContainer.parentNode.getAttribute("endtime");
+            endID= rangeObject.endContainer.parentNode.getAttribute("id");
+             console.log("flag5");
+        }else if(rangeObject.endContainer.className=="line") {
+            var selection_out= rangeObject.endContainer.firstChild.nextSibling.getAttribute("endtime");
+            endID= rangeObject.endContainer.firstChild.nextSibling.getAttribute("id");
+             console.log("flag6");
+        }else{
+            console.log("not a line not a word");
+           var selection_out= rangeObject.endContainer.parentNode.getAttribute("endtime");
+            endID= rangeObject.endContainer.parentNode.getAttribute("id");
+            console.log("flag7");
+        }
+
+        //     selection_in >=<  selection_out //
+        var tc_in;
+        var tc_out;
+
+        if ( parseFloat(selection_in) >  parseFloat(selection_out)){//parse int
+            tc_in = selection_out;
+            tc_out = selection_in;
+        }else {
+            tc_in =selection_in;
+            tc_out =selection_out;
+        }
+
+        var duration = parseFloat(tc_out) -  parseFloat(tc_in) ;
+        
+        console.log("tc_in: "+tc_in);
+        var startElementID=endID;
+        console.log("tc_out: "+tc_out);
+        var endElementID=startID;
+        console.log("duration: "+duration);
+    
+        //hypertranscript var has been made available to the dom  
+        console.log("startID: "+startID);
+        console.log("endID: "+endID);
+
+        var startElement;
+        var endElement;
+        var selectionElements=[]
+        for(var i=0; i<hypertranscript.words.length; i++){
+            if(hypertranscript.words[i].id== startID){
+            startElement=hypertranscript.words[i];
+            }
+            if(hypertranscript.words[i].id== endID){
+            endElement=hypertranscript.words[i];
+            }
+            //range of words objects
+            if((hypertranscript.words[i].id>= startID ) &&(hypertranscript.words[i].id<= endID) ){
+                var element=hypertranscript.words[i];
+                selectionElements.push(element);
+            }
+
+        }
+        console.log(startElement);
+        console.log(endElement);
+        // console.log(selectionElements);
+        //  update quote selector with values
+        $('#input').val(tc_in);
+        $('#output').val(tc_out);
+
+        if( parseFloat(duration).toFixed(2) < allowedTwitterVideoTime){
+            $('#duration').val( parseFloat(duration).toFixed(2));
+        }else{
+                 console.log("selection over 30 seconds ");
+        var notice  =  document.getElementById("validationNotice");
+        var over30Seconds = document.createTextNode("To export to twitter select less then 30 seconds worth of video");
+        var para = document.createElement("p");
+        para.setAttribute("class", "text-warning");
+        para.appendChild(over30Seconds);
+        notice.appendChild(para);
+        }
+    });
+});
+////////////////end quote selection
+////////////////end quote selection
+</script>

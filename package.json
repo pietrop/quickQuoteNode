@@ -1,0 +1,26 @@
+{
+  "name": "quick_quote",
+  "version": "1.0.0",
+  "description": "node version of quickQuote application.",
+  "main": "app.js",
+  "dependencies": {
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "twit": "2.1.1",
+    "twitter-media": "0.1.0",
+    "fluent-ffmpeg": "~1.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pietrop/quickQuoteNode.git"
+  },
+  "author": "Pietro Passarelli",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pietrop/quickQuoteNode/issues"
+  },
+  "homepage": "https://github.com/pietrop/quickQuoteNode#readme"
+}

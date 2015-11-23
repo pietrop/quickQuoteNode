@@ -45,7 +45,7 @@ var tweet_video = function(text,videoFile){
 
 ////to test function
 // var status     =   "Testing Twitter Video API";
-// var videoFile  =   "./debate_test_twitter.mp4";
+// var videoFile  =   "output_debate_test.mp4";
 // tweet_video(status, videoFile);
 
 module.exports = {

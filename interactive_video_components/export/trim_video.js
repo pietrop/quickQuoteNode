@@ -10,13 +10,13 @@ var ffmpeg = require('fluent-ffmpeg');
 var command = ffmpeg();
 
 
-var trim_video = function(src,input,duration, outputName){
-	var videoSrc= src;
+var trim_video = function(src, input, duration, outputName){
+	var src = src;
 	var input = input;//sec
 	var duration = duration; //sec
 	// TODO: change so  that if outputName not defined, then does following line. outputName as optional param
 	// var output = videoSrc.split(".")[0] + "_twitter"+".mp4";//html5
-	var command = ffmpeg(videoSrc).seekInput(input).setDuration(duration).output(outputName).videoCodec('libx264').size('1280x1024').aspect('3:1').on('end', function() {
+	var command = ffmpeg(src).seekInput(input).setDuration(duration).output(outputName).videoCodec('libx264').size('1280x1024').aspect('3:1').on('end', function() {
 	    console.log('Finished processing');
 	  })
 	  .run();
@@ -25,10 +25,10 @@ var trim_video = function(src,input,duration, outputName){
 // .audioCodec('libfaac')
 
 //// test cutting video
-// trim_video('debate_test.mp4',773,3);
+trim_video('debate_test.mp4',773,3, "output_debate_test.mp4");
 
 module.exports = {
-		trim_video : function(src,input,duration){
+		trim_video : function(src, input, duration, outputName){
 		return trim_video(src,input,duration,outputName);
 	}//,
 };

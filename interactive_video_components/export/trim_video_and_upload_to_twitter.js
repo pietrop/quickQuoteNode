@@ -6,9 +6,9 @@ var tweet = require('./export_twitter_video.js')
 
 
 var trim_and_upload_to_twitter = function (scr, input, duration, outName, status){
-	video_trimmer.trim_video(src, input, duration,outName);
-	//need to make these sequential, mayber with a callback
-	tweet.tweet_video(status, outName);
+	video_trimmer.trim_video(src, input, duration,outName, function(){
+	  tweet.tweet_video(status, outName);
+  });
 }
 
 // video_trimmer.trim_video(videoFile, 200, 5,videoFileOutput);

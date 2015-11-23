@@ -28,7 +28,7 @@ var trim_video = function(src,input,duration, outputName, callback){
 // trim_video('debate_test.mp4',773,3);
 
 module.exports = {
-		trim_video : function(src,input,duration){
-		return trim_video(src,input,duration,outputName);
+		trim_video : function(src,input,duration,outputName,callback){
+		return trim_video(src,input,duration,outputName,callback);
 	}//,
 };

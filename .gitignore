@@ -1,6 +1,8 @@
 #ignore config file
 config.js
 
+media/debate_test.mp4
+
 # Logs
 logs
 *.log

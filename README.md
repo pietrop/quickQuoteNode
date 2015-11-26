@@ -28,13 +28,17 @@ config.twitter.token_secret		= 	process.env.TWITTER_SECRET 			|| "";
 module.exports = config;
 ```
 
-
 ## Install dependencies
 
 ```bash
 npm install
 ```
 
+## Run the app
+
+```bash
+npm start
+```
 
 ## video file
 

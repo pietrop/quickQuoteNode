@@ -8,20 +8,24 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/"><%= locals.appdetails.appname %></a>
-      <script>
-      console.log(<%= locals.appdetails %>)
-      </script>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
       <ul class="nav navbar-nav">
         <li><a href="/hypertranscripts/">Videos <span class="sr-only">(current)</span></a></li>
         <li><a href="/hypertranscripts/new">New </a></li>
+
+        
+
+
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
+
+        
+
       	<!-- Export -->
-      	<% if(locals.hypertranscript){ %>
+    <% if(locals.hypertranscript){ %>
         <li class="active" class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Export <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
@@ -42,19 +46,32 @@
             <li class="divider"></li>
              <li><a href="#">Text</a></li>
           </ul>
-        </li>
+  </li>
 	<% }%>
 	<!-- End export -->
 
+        <!-- Twitter user name -->
+        <% if (user) { %>
+       <li><a href="#"><%= user.screen_name %></a></li>
+      <% }%>
+
        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Login <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+
+            <% if (!user) { %>
+            Login 
+          <% } else { %>
+            Logout
+          <% } %><span class="caret"></span></a>
+
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Logout</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Signup</a></li>
-             <li class="divider"></li>
-             <li><a href="#">setting</a></li>
+
+              <% if (!user) { %>
+                <li><a href="/auth/twitter">Sign in with Twitter</a></li>
+              <% } else { %>
+               <li><a href="/logout">Logout</a></li>
+              <% } %>
+
           </ul>
         </li>
       </ul>

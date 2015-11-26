@@ -4,20 +4,22 @@
   "description": "node version of quickQuote application.",
   "main": "app.js",
   "dependencies": {
-    "cookie-parser": "^1.4.0",
-    "ejs": "^2.3.4",
-    "express": "^4.13.3",
-    "express-session": "^1.12.1",
+    "body-parser": "^1.14.1",
+    "cookie-parser": "1.4.0",
+    "ejs": "2.3.4",
+    "express": "4.13.3",
+    "express-session": "1.12.1",
     "fluent-ffmpeg": "~1.7",
     "logger": "0.0.1",
-    "mongoose": "^4.2.8",
-    "passport-twitter": "^1.0.3",
+    "mongoose": "4.2.8",
+    "passport": "0.3.2",
+    "passport-twitter": "1.0.3",
+    "subtitles-parser": "0.0.2",
     "twit": "2.1.1",
     "twitter-media": "0.1.0"
   },
   "scripts": {
-    "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "NODE_PATH=. node lib/server"
   },
   "repository": {
     "type": "git",

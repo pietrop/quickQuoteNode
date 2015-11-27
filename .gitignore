@@ -1,6 +1,9 @@
 #ignore config file
 config.js
 
+#ignore markdown,so can make notes
+*.markdown
+
 #ignore all video files
 *.wmv
 *.mpg

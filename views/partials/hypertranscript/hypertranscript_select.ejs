@@ -38,8 +38,8 @@ $(function() {
         quote = selection.toString();
         //removes new lines divisions in the text of the quote
         quote = quote.replace(/(\r\n|\n|\r)/gm,"");
-        //capitalize quote, and adds dot at end of line
-        quote = quote.charAt(0).toUpperCase() + quote.slice(1)+".";
+        //add quotes " a round text selection line
+        quote = "\""+quote.charAt(0).toUpperCase() + quote.slice(1)+"\"";
         
         var characters = document.getElementById('characters');
         // $("#characters").val(quote.length);
@@ -179,8 +179,8 @@ $("#textQuote").on("change keyup paste", function() {
         console.log(endElement);
         // console.log(selectionElements);
         //  update quote selector with values
-        $('#input').val(tc_in);
-        $('#output').val(tc_out);
+        $('#input').val(toHHMMSS(tc_in));
+        $('#output').val(toHHMMSS(tc_out));
 
         if( parseFloat(duration).toFixed(2) < allowedTwitterVideoTime){
             $('#duration').val( parseFloat(duration).toFixed(2));
@@ -195,6 +195,22 @@ $("#textQuote").on("change keyup paste", function() {
         }
     });
 });
+
+
+//////////////helper function convert seconds
+//take in seconds as paramter
+function toHHMMSS (sec) {
+    var sec_num = parseInt(sec, 10); // don't forget the second param
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    var time    = hours+':'+minutes+':'+seconds;
+    return time;
+}
 ////////////////end quote selection
 ////////////////end quote selection
 </script>

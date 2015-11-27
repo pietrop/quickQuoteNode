@@ -2,8 +2,9 @@
 <script type='text/javascript'>
 // passing hypertranscript data structure to the client side
 //http://stackoverflow.com/questions/27787204/pass-variable-from-express-to-client-javascript
+console.log(hypertranscript);
 var hypertranscript = <%- JSON.stringify(locals.hypertranscript) %> ;
-var videoId = <%- JSON.stringify(locals.hypertranscript.video.id) %> ;
+// var videoId = <%- JSON.stringify(locals.hypertranscript.video.id) %> ;
 </script>
 <div class="container-fluid">
 <% if(locals.hypertranscript){ %>
@@ -25,52 +26,13 @@ var videoId = <%- JSON.stringify(locals.hypertranscript.video.id) %> ;
         Your browser does not support HTML5 video.
       </video>
       <!--  </div> --> <!-- resp video -->
-      <a class="btn btn-primary btn-xs btn-info" role="button" data-toggle="collapse" href="#collapseVideoDescription" aria-expanded="false" aria-controls="collapseVideoDescription">
-        Info
-      </a>
-      <div class="collapse" id="collapseVideoDescription">
-        <!-- <div class="well"> -->
-        <h3><small>Title:</small> <%= hypertranscript.title %></h3> 
-      <h3><small>Description:</small></h3>
-      <p><%= hypertranscript.description %></p>
-      <h3><small>Video Specs:</small></h3>
-      <div class="table-responsive">
-      <table class="table table-striped table-hover">
-        <tbody>
-          <tr>
-            <!-- <th></th> -->
-            <th>Date</th>
-            <th>File name</th>
-            <th>Reel</th>
-            <th>Timecode</th>
-          </tr>
-          <tr>
-            <!-- <td></td> -->
-            <td><%= hypertranscript.video.date %></td>
-            <td><%= hypertranscript.video.videoFileName %></td>
-            <td> <%= hypertranscript.video.reel %></td>
-            <td><%= hypertranscript.video.timecodeStart %></td>
-          </tr>
-        </tbody>
-      </table> 
-      </div> <!-- table resp -->
-      </div> <!-- collapse -->
 
-
-
-      <a class="btn btn-primary btn-xs btn-info" role="button" data-toggle="collapse" href="#twitterExport" aria-expanded="false" aria-controls="twitterExport" id="twitterExportbtn">
-        Twitter
-      </a>
-      <div class="collapse" id="twitterExport">
-  <!--  -->
-
-
+   <p class="help-block"><small>Select a line of text from the transcription to generate a video quote</small></p>
+   <hr>
 <div id="validationNotice"></div>
-
-
-
         <!-- <div class="well"> -->
         <!-- Quote selection Text area-->
+   <label class="control-label" for="textQuote">Status</label>
     <textarea  class="form-control quote" id="textQuote" rows="4" cols="50" >
     Select quote in transcription
     </textarea>
@@ -78,41 +40,41 @@ var videoId = <%- JSON.stringify(locals.hypertranscript.video.id) %> ;
       <label class="control-label" for="focusedInput">Characters</label>
       <input class="form-control" id="characters" type="text" value="0"disabled="">
     </div>
-    <p class="help-block">Select a line of text from the transcription to generate a video quote</p>
+ 
     <!-- Quote Selection author field-->
-    <div class="form-group">
+   <!--  <div class="form-group">
       <label class="control-label" for="focusedInput">Author</label>
       <input class="form-control" id="author" id="focusedInput" type="text" placeholder="Author of Quote">
-    </div>
+    </div> -->
     <!-- input output duration-->
     <div class="row" >
-      <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" >
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" >
     <div class="form-group">
       <label class="control-label" for="focusedInput">In</label>
-      <input class="form-control" id="input" id="focusedInput" type="text" value="00:00:00:00"disabled="">
+      <input class="form-control" id="input" type="text" value="00:00:00:00"disabled="">
     </div>
       </div><!-- col-->
       <!-- Output field-->
-        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" >
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" >
     <div class="form-group">
       <label class="control-label" for="focusedInput">Out</label>
-      <input class="form-control" id="output" id="focusedInput" type="text" value="00:00:00:00"disabled="">
+      <input class="form-control" id="output" type="text" value="00:00:00:00"disabled="">
     </div>
        </div> <!-- col-->
       <!-- Duration-->
       <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" >
     <div class="form-group">
       <label class="control-label" for="disabledInput">Duration</label>
-      <input class="form-control" id="duration" id="disabledInput" type="text" value="00:00:00:00" disabled="">
+      <input class="form-control" id="duration" id="disabledInput" type="text" value="00.00" disabled="">
     </div>
     </div><!-- col-->
 <!--Buttons preview and Export, Buttons trigger modal -->
   </div class="row">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3" >
       <!-- Preview button-->
-      <button type="button" class="btn btn-sm btn-warning" id="preview" data-toggle="modal" data-target="#previewModal">
+    <!--   <button type="button" class="btn btn-sm btn-warning" id="preview" data-toggle="modal" data-target="#previewModal">
         Preview
-      </button>
+      </button> -->
       <!-- Export button-->
       <button type="button" class="btn btn-sm btn-success" id="export" data-loading-text="Exporting...">
       Export
@@ -120,15 +82,13 @@ var videoId = <%- JSON.stringify(locals.hypertranscript.video.id) %> ;
       </div>
     </div><!-- col-->
 
-<!--  -->
-      </div> <!-- collapse -->
 
 <% include partials/page/jsdefaults.ejs %>
 <script>
-$(function() {
-var twitterBtn =document.getElementById("twitterExportbtn");
-twitterBtn.click();
-});
+// $(function() {
+// var twitterBtn =document.getElementById("twitterExportbtn");
+// twitterBtn.click();
+// });
 </script>
 
     </div> <!-- col -->

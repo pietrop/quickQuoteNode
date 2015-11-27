@@ -43,3 +43,10 @@ npm start
 ## video file
 
 as the video file is 207.5 mb is not included in the git repo, and the `.gitignore` is set to exclude videos from the repo to stop it from upload. So here is a[link to video file](https://dl.dropboxusercontent.com/u/449999/debate_test.mp4). 
+
+[srt file of this video can also be found here](https://dl.dropboxusercontent.com/u/449999/GOP_DEBATE_small.srt)
+
+<!--  -->
+The srt is provided temporarily before hooking up the speech to text api, as it would be what the speech to text api. 
+also thinking of providing option for user to upload own srt or to generate it with speech to text api...
+<!--  -->

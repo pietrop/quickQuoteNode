@@ -8,8 +8,20 @@
   <div class="container-fluid">
     <!-- body -->
 
-  <img src="videos/overview.png" class="img-responsive center-block" alt="Responsive image">
+    <%- body %>
+
 <% include partials/page/jsdefaults.ejs %>
-  </div>
+
+<footer class="footer navbar-fixed-bottom">
+      <div class="container">
+        <p class="text-muted"><!-- Page footer -->
+<% include partials/page/footer.ejs %>
+
+</p>
+      </div>
+    </footer>
+
+
+  </div> <!-- container -->
   </body>
 </html>

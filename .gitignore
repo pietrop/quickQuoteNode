@@ -13,6 +13,9 @@ config.js
 *.ogg
 *.webm
 
+#ingore subtitles files
+*.srt
+*.sbv
 
 
 # Logs

@@ -1,2 +1,30 @@
 <!-- hypertranscript_new.ejs -->
 <h1>New</h1>
+
+<form action="/hypertranscripts/create" method="post" enctype="multipart/form-data">  
+
+<label for="title">title of yout transcript:</label>
+<input type="text" name="title">
+<br>
+<label for="description">description:</label>
+<input type="text" name="description">
+
+<hr>
+
+<br>
+  <label for="file">Select your video:</label>
+  <input type="file" name="videofile" id="videofile" />
+  <span class="hint">Supported files: mov, mp4.</span>
+<br>
+
+<hr>
+<br>
+  <label for="file">Select your video <code>srt</code> transcription:</label>
+  <input type="file" name="srtfile" id="srtfile" />
+  <span class="hint">Supported files: srt</span>
+<br>
+
+  <button type="submit">Save</button>
+
+
+</form>

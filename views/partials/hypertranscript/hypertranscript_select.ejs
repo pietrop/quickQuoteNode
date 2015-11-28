@@ -260,7 +260,12 @@ exportBtn.onclick = function(){
           dataType: 'json',
           async: true
       }).done(function(data){
-
+        console.log("ajax response");
+        if(data.response=="sucess"){
+            alert("tweet sent sucessfully");
+        }else{
+           alert("There was a problem sending this tweet"); 
+        }
         console.log(data);
       });//ajax
 

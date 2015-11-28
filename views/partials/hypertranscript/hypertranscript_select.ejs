@@ -2,7 +2,8 @@
 Client side hypertranscript select
 TODO: detects html elements of selection
 checks against hypertranscript json on client side 
-and returns word objects in range?
+and returns word objects in range. done.
+TODO: refactor for clarity and legibility, need simpler way to do selection
  -->
 <script>
 /* *
@@ -16,18 +17,69 @@ and returns word objects in range?
  *
  * */
 
-$(function() {
+ $(function() {
     'use strict';
-    var allowedTwitterVideoTime= 30; //seconds for average user but could also be 2 min for special accounts
-    //TODO: add radio button option 30 or 2 min.
+    //magic numbers
+     var twitterCharCountLimit=140;
+     var allowedTwitterVideoTime= 30;
 
-    // select quote fills in quote text area details
+     //helper function to enable or disable export button
+     function disableExportBtn(bool){
+        
+            document.getElementById("export").disabled = bool;        
+     }
+    //helper function updates char count box grabbing text from text area
+    function charCountUpdate(){
+        var charCount = $("#textQuote").val().split("").length
+        $('#characters').val(charCount);
+        //changes background if goes over twitter char limit
+         if(charCount>twitterCharCountLimit){
+            document.getElementById('characters').style.backgroundColor="red";
+            //TODO: here disable export button
+            disableExportBtn(true);
+        }else{
+            document.getElementById('characters').style.backgroundColor="";
+            //disable unless duration is over allowed specs
+            var duration = document.getElementById('duration').value;
+           if (parseFloat(duration)>allowedTwitterVideoTime) {
+                disableExportBtn(true);
+            } else{
+                disableExportBtn(false);
+            }
+        }
+    }
+
+    //helper, updates progress bar using char count
+    function progressBarUpdate(){
+          //progress bar - %
+        var $pb = $('.progress .progress-bar');
+        ///////////////
+        //progress bar
+       
+        var charCount = $("#textQuote").val().split("").length
+        var percentageCharCount = charCount/twitterCharCountLimit*100;
+        var $pb = $('.progress .progress-bar');
+        $pb.attr('data-transitiongoal', percentageCharCount).progressbar({display_text: 'fill'});
+        /////////////
+    }
+    
+    //when user types in text area 
+    $("#textQuote").on("change keyup paste", function() {
+      charCountUpdate();  
+      progressBarUpdate();
+        
+    });
+    /////////////////////
+
+
     var quote;
     $(".transcription").mouseup(function() {
+
+        //SELECTION
         // clear quote 140 char erro message on new selection
         var notice  =  document.getElementById("validationNotice");
         notice.innerHTML = '';
-        ////
+        //selection 
         var selection;
         console.log("selection made");
         if (window.getSelection) {
@@ -40,39 +92,13 @@ $(function() {
         quote = quote.replace(/(\r\n|\n|\r)/gm,"");
         //add quotes " a round text selection line
         quote = "\""+quote.charAt(0).toUpperCase() + quote.slice(1)+"\"";
-        
-        var characters = document.getElementById('characters');
-        // $("#characters").val(quote.length);
-        characters.value = quote.length;
-///////////////////// to update count of char of text area when user types in it
-var oldVal = "";
-$("#textQuote").on("change keyup paste", function() {
-    var currentVal = $(this).val();
-    if(currentVal == oldVal) {
-        return; //check to prevent multiple simultaneous triggers
-    }
-    
-    oldVal = currentVal;
-    //action to be performed on textarea changed
-    // alert("changed!");
-    characters.value = currentVal.length;
-});
-/////////////////////
 
-
-        if(quote.length<140){
+        //text area - text quote
         $("#textQuote").val(quote);
-        }else{
-            console.log("selection over 140");
-        var notice  =  document.getElementById("validationNotice");
-        var over140CharText = document.createTextNode("To export to twitter select less then 140 characters");
-        var para = document.createElement("p");
-        para.setAttribute("class", "text-warning");
-        para.appendChild(over140CharText);
-        notice.appendChild(para);
-        }
-
-        //first in seleciton
+      
+        
+       /////////////SELECTION - RANGE
+       //first in seleciton
         var firstInSeleciton =  selection.focusNode.parentNode;
         //last in selection
         var lastInSelection = selection.anchorNode.parentNode;
@@ -145,22 +171,13 @@ $("#textQuote").on("change keyup paste", function() {
             tc_in =selection_in;
             tc_out =selection_out;
         }
-
-        var duration = parseFloat(tc_out) -  parseFloat(tc_in) ;
-        
-        console.log("tc_in: "+tc_in);
+      
+      //following code identifies elment in hypertranscript that matches selection. to solve issue when selecting blank spaces/elements =>Nan
         var startElementID=endID;
-        console.log("tc_out: "+tc_out);
         var endElementID=startID;
-        console.log("duration: "+duration);
-    
-        //hypertranscript var has been made available to the dom  
-        console.log("startID: "+startID);
-        console.log("endID: "+endID);
-
         var startElement;
         var endElement;
-        var selectionElements=[]
+        var selectionElements=[];
         for(var i=0; i<hypertranscript.words.length; i++){
             if(hypertranscript.words[i].id== startID){
             startElement=hypertranscript.words[i];
@@ -175,28 +192,63 @@ $("#textQuote").on("change keyup paste", function() {
             }
 
         }
-        console.log(startElement);
-        console.log(endElement);
-        // console.log(selectionElements);
-        //  update quote selector with values
-        $('#input').val(toHHMMSS(tc_in));
-        $('#output').val(toHHMMSS(tc_out));
 
-        if( parseFloat(duration).toFixed(2) < allowedTwitterVideoTime){
-            $('#duration').val( parseFloat(duration).toFixed(2));
+        //input - timecode
+        $('#input').val(toHHMMSS(startElement.startTime));
+        //output - timecode
+        $('#output').val(toHHMMSS(endElement.endTime));
+
+
+        ////////////DURATION
+        //duration - seconds
+        $('#duration').val()
+        var duration = parseFloat(tc_out) -  parseFloat(tc_in);
+
+        $('#duration').val(duration);
+
+        if(duration>allowedTwitterVideoTime){
+            document.getElementById('duration').style.backgroundColor="red";
+            //TODO: here disable export button
+            disableExportBtn(true);
         }else{
-                 console.log("selection over 30 seconds ");
-        var notice  =  document.getElementById("validationNotice");
-        var over30Seconds = document.createTextNode("To export to twitter select less then 30 seconds worth of video");
-        var para = document.createElement("p");
-        para.setAttribute("class", "text-warning");
-        para.appendChild(over30Seconds);
-        notice.appendChild(para);
+            document.getElementById('duration').style.backgroundColor="";
+            //TODO: here enable export button
+            disableExportBtn(false);
         }
+    
+    //charchters - count
+       charCountUpdate(); 
+       progressBarUpdate();
     });
+
+var exportBtn=document.getElementById('export');
+
+exportBtn.onclick = function(){
+        confirm("Are you sure you want to tweet this video and text?");
+        //get in
+        var input = document.getElementById('input').value;//it's in tc 
+        //get out
+        var dur = document.getElementById('duration').value;
+        //get text
+        var text = document.getElementById('textQuote').value;
+        //videoSrc
+        var src = document.getElementById('transcriptVideo').currentSrc;
+
+        var tweet={};
+        // node-fluent-ffmpeg takes in seconds or timestamp string (with format [[hh:]mm:]ss[.xxx] so adding +".000" for milliseconds should do the trick(?)
+        tweet.input=input+".000";
+        tweet.dur=dur;
+        tweet.text = text;
+        tweet.src=src;
+        console.log(tweet);
+        return false;
+
+        //make ajax request to trim, and upload video on user's behalf.
+    };
+
+
+
 });
-
-
 //////////////helper function convert seconds
 //take in seconds as paramter
 function toHHMMSS (sec) {
@@ -211,6 +263,13 @@ function toHHMMSS (sec) {
     var time    = hours+':'+minutes+':'+seconds;
     return time;
 }
-////////////////end quote selection
-////////////////end quote selection
+////////////////
+
+
 </script>
+
+
+
+
+
+

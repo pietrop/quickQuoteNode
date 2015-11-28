@@ -2,30 +2,34 @@
  <h1>Videos</h1>
 
  <% if(locals.hypertranscripts){ %>
-	 <% var data = locals.hypertranscripts %>
-	<table>
-	<% for(var i=0; i < data.length; i++) { %>
-	   <tr>
-	   	<td><%= i+1 %> </td>
+ <% var data = locals.hypertranscripts %>
+ <% for(var i=0; i < data.length; i++) { %>
+ <div class="media">
+ 	<div class="media-left">
+    <a href="#">
+    	<img class="media-object" src="http://placehold.it/64x64">
+    </a>
+  </div>
 
-	     <td> 
-	     	<a href=<%= '/hypertranscripts/'+data[i]._id+'/show' %> ><%= data[i].title %></a>
-	     </td>
-	     <td> <%= data[i].description %></td>
-	     <td>
-	     <a href=<%= '/hypertranscripts/'+data[i]._id+'/delete' %>  onclick="return confirm('Are you sure you want to delete this item?');"> delete</a>
-	 </td>
-	   </tr>
-	<% } %>
-	</table>
-
+  <div class="media-body">
+    <h4 class="media-heading"><%= i+1 %> - <a href=<%= '/hypertranscripts/'+data[i]._id+'/show' %> ><%= data[i].title %></a></h4>
+   <p><%= data[i].description %> 
+   <small> <a href=<%= '/hypertranscripts/'+data[i]._id+'/delete' %>  onclick="return confirm('Are you sure you want to delete this item?');"> delete</a></small></p>
+  </div>
+</div>
+<% } %>
  <% }%>
 
+
+
  <% if(locals.hypertranscripts.length == 0){%>
- <div class="center">
-<p >you currently don't have any videos</p>
-<p >start by uploading a 
-<a href="/hypertranscripts/new">new video</a>
-</p>
+
+<div class="alert alert-info" role="alert">
+	<p class="text-center">you currently don't have any videos</p>
+	<p class="text-center">start by uploading a 
+	<a href="/hypertranscripts/new"><strong>new video</strong></a>
+	
+</div>
+
 </div>
 <%}%>

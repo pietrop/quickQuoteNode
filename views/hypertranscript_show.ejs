@@ -32,10 +32,19 @@ var hypertranscript = <%- JSON.stringify(locals.hypertranscript) %> ;
 <div id="validationNotice"></div>
         <!-- <div class="well"> -->
         <!-- Quote selection Text area-->
+
+<!--  -->
    <label class="control-label" for="textQuote">Status</label>
     <textarea  class="form-control quote" id="textQuote" rows="4" cols="50" >
-    Select quote in transcription
+    
     </textarea>
+    <br>
+<!-- progress -->
+<div class="progress">
+    <div class="progress-bar" id="progress-bar" role="progressbar" data-transitiongoal="75"></div>
+</div>
+
+<!-- progress  -->
     <div class="form-group">
       <label class="control-label" for="focusedInput">Characters</label>
       <input class="form-control" id="characters" type="text" value="0"disabled="">

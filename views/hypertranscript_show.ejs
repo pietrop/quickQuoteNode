@@ -44,12 +44,22 @@ var hypertranscript = <%- JSON.stringify(locals.hypertranscript) %> ;
     <div class="progress-bar" id="progress-bar" role="progressbar" data-transitiongoal="75"></div>
 </div>
 
-<!-- progress  -->
+<!-- progress  end -->
+<div class="row" >
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" >
     <div class="form-group">
       <label class="control-label" for="focusedInput">Characters</label>
       <input class="form-control" id="characters" type="text" value="0"disabled="">
     </div>
- 
+ </div><!-- col-->
+<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" >
+    <div class="form-group">
+      <label class="control-label" for="disabledInput">Duration</label>
+      <input class="form-control" id="duration" id="disabledInput" type="text" value="00.00" disabled="">
+       <span class="help-block">Seconds</span>
+    </div>
+ </div><!-- col-->
+</div><!-- row-->
     <!-- Quote Selection author field-->
    <!--  <div class="form-group">
       <label class="control-label" for="focusedInput">Author</label>
@@ -57,14 +67,14 @@ var hypertranscript = <%- JSON.stringify(locals.hypertranscript) %> ;
     </div> -->
     <!-- input output duration-->
     <div class="row" >
-      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" >
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" >
     <div class="form-group">
       <label class="control-label" for="focusedInput">In</label>
       <input class="form-control" id="input" type="text" value="00:00:00:00"disabled="">
     </div>
       </div><!-- col-->
       <!-- Output field-->
-        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" >
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" >
     <div class="form-group">
       <label class="control-label" for="focusedInput">Out</label>
       <input class="form-control" id="output" type="text" value="00:00:00:00"disabled="">
@@ -72,10 +82,7 @@ var hypertranscript = <%- JSON.stringify(locals.hypertranscript) %> ;
        </div> <!-- col-->
       <!-- Duration-->
       <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" >
-    <div class="form-group">
-      <label class="control-label" for="disabledInput">Duration</label>
-      <input class="form-control" id="duration" id="disabledInput" type="text" value="00.00" disabled="">
-    </div>
+  
     </div><!-- col-->
 <!--Buttons preview and Export, Buttons trigger modal -->
   </div class="row">
@@ -86,7 +93,7 @@ var hypertranscript = <%- JSON.stringify(locals.hypertranscript) %> ;
       </button> -->
       <!-- Export button-->
       <button type="button" class="btn btn-sm btn-success" id="export" data-loading-text="Exporting...">
-      Export
+      Tweet
     </button>
       </div>
     </div><!-- col-->

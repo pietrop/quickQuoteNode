@@ -22,7 +22,8 @@ TODO: refactor for clarity and legibility, need simpler way to do selection
     //magic numbers
      var twitterCharCountLimit=140;
      var allowedTwitterVideoTime= 30;
-
+     var backgroundColorWarning = "#B22222";
+     var textColorWarning ="white";
      //helper function to enable or disable export button
      function disableExportBtn(bool){
         
@@ -34,11 +35,13 @@ TODO: refactor for clarity and legibility, need simpler way to do selection
         $('#characters').val(charCount);
         //changes background if goes over twitter char limit
          if(charCount>twitterCharCountLimit){
-            document.getElementById('characters').style.backgroundColor="red";
+            document.getElementById('characters').style.backgroundColor= backgroundColorWarning;
+            document.getElementById('characters').style.color=textColorWarning;
             //TODO: here disable export button
             disableExportBtn(true);
         }else{
             document.getElementById('characters').style.backgroundColor="";
+            document.getElementById('characters').style.color="";
             //disable unless duration is over allowed specs
             var duration = document.getElementById('duration').value;
            if (parseFloat(duration)>allowedTwitterVideoTime) {
@@ -204,14 +207,17 @@ TODO: refactor for clarity and legibility, need simpler way to do selection
         $('#duration').val()
         var duration = parseFloat(tc_out) -  parseFloat(tc_in);
 
-        $('#duration').val(duration);
+        $('#duration').val(parseInt(duration));
 
         if(duration>allowedTwitterVideoTime){
-            document.getElementById('duration').style.backgroundColor="red";
+            document.getElementById('duration').style.backgroundColor=backgroundColorWarning;
+            document.getElementById('duration').style.color=textColorWarning;
+            
             //TODO: here disable export button
             disableExportBtn(true);
         }else{
             document.getElementById('duration').style.backgroundColor="";
+            document.getElementById('duration').style.color="";
             //TODO: here enable export button
             disableExportBtn(false);
         }
@@ -241,9 +247,25 @@ exportBtn.onclick = function(){
         tweet.text = text;
         tweet.src=src;
         console.log(tweet);
-        return false;
+        // return false;
 
-        //make ajax request to trim, and upload video on user's behalf.
+
+        //MAKE AJAX request to trim, and upload video on user's behalf.
+        var currentUrl =  window.location.origin;
+         $.ajax({
+          type: 'POST',
+          // dataType: 'script',
+          url: currentUrl +'/tweet_quote/',
+          data: { "quoteDetails" : JSON.stringify(tweet)},
+          dataType: 'json',
+          async: true
+      }).done(function(data){
+
+        console.log(data);
+      });//ajax
+
+
+
     };
 
 

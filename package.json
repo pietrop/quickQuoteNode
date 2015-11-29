@@ -11,7 +11,6 @@
     "express": "4.13.3",
     "express-ejs-layouts": "^2.0.0",
     "express-session": "1.12.1",
-    "fluent-ffmpeg": "~1.7",
     "formidable": "^1.0.17",
     "logger": "0.0.1",
     "mongoose": "4.2.8",

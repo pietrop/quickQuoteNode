@@ -19,8 +19,7 @@
       
       <ul class="nav navbar-nav navbar-right">
 
-        
-
+  
       	<!-- Export -->
     <% if(locals.hypertranscript){ %>
         <li class="active" class="dropdown">
@@ -49,7 +48,8 @@
 
         <!-- Twitter user name -->
         <% if (user) { %>
-       <li><a href="#"><%= user.screen_name %></a></li>
+        
+       <li><a class="icon-twitter" href="https://twitter.com/<%= user.name %>" target="_blank"><%= user.screen_name %></a></li>
       <% }%>
 
        <li class="dropdown">

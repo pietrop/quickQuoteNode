@@ -13,6 +13,9 @@ Config file is in git ignore, but the following code create one for your project
 ```js
 var config = {};
 
+config.appdetail 	= 	{appname: 'quickQuote'};
+config.appRootPath 	= 	__dirname;
+
 config.twitter = {};
 config.spokendata={};
 
@@ -22,8 +25,9 @@ config.spokendata.apitoken 		=	process.env.SPOKENDATA_APITOKEN		|| "";
 
 config.twitter.consumer_key 	=	process.env.TWITTER_CONSUMER_KEY 	|| "";
 config.twitter.consumer_secret 	= 	process.env.TWITTER_CONSUMER_SECRET || "";
-config.twitter.token 			=	process.env.TWITTER_TOKEN 			|| "";
-config.twitter.token_secret		= 	process.env.TWITTER_SECRET 			|| "";
+//config.twitter.token 			=	process.env.TWITTER_TOKEN 			|| "";
+//config.twitter.token_secret		= 	process.env.TWITTER_SECRET 			|| "";
+config.twitter.callbackURL		=	process.env.TWITTER_CALLBACK		|| 	"";
 
 module.exports = config;
 ```
@@ -33,6 +37,38 @@ module.exports = config;
 ```bash
 npm install
 ```
+
+## FFMPEG
+[ffmpeg](https://github.com/pietrop/InteractiveVideoComponents/wiki/00_components_system_dependencies)
+
+## Mongo db 
+
+### Install  Mongo db 
+[Install mongo db](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/)
+
+```
+brew update
+```
+
+```
+brew install mongodb
+```
+
+create default `data` folder 
+
+```
+sudo mkdir /data/db
+```
+
+### run Mongo db 
+to run mongo db from bash
+```
+sudo mongod
+```
+
+to shut down 
+
+`ctrl` + `z`
 
 ## Run the app
 

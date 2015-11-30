@@ -207,7 +207,7 @@ TODO: refactor for clarity and legibility, need simpler way to do selection
         $('#duration').val()
         var duration = parseFloat(tc_out) -  parseFloat(tc_in);
 
-        $('#duration').val(parseInt(duration));
+        $('#duration').val(toHHMMSS(duration));
 
         if(duration>allowedTwitterVideoTime){
             document.getElementById('duration').style.backgroundColor=backgroundColorWarning;

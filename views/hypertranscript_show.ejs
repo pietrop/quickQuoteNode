@@ -92,8 +92,7 @@ var hypertranscript = <%- JSON.stringify(locals.hypertranscript) %> ;
         Preview
       </button> -->
       <!-- Export button-->
-      <button type="button" class="btn btn-sm btn-success" id="export" data-loading-text="Exporting...">
-      Tweet
+      <button type="button" class="btn btn-sm btn-success el el-twitter" id="export" data-loading-text="Tweeting...">  Tweet <b class="el el-video"></b> <b class="el el-quote-right-alt"></b>
     </button>
       </div>
     </div><!-- col-->
@@ -117,8 +116,8 @@ var hypertranscript = <%- JSON.stringify(locals.hypertranscript) %> ;
 <!-- includes js script that makes hypertranscript interactive with video --> 
 
 <% include partials/hypertranscript/hypertranscript_interactivity.ejs %>
-
 <% include partials/hypertranscript/hypertranscript_select.ejs %>
+<% include partials/hypertranscript/hypertranscript_export_quote.ejs %>
 
 <% include partials/page/jsdefaults.ejs %>
 

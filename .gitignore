@@ -1,6 +1,9 @@
 #ignore config file
 config.js
 
+#heroku enviroment variabels
+.env
+
 #ignore markdown,so can make notes
 *.markdown
 

@@ -1,0 +1,65 @@
+<script>
+/**
+ * Function triggered when clicking the export button on the page
+ * gets information about the quote: input, duration, text, and src of video (mostly from selection form fields).
+ * makes ajax request passing quote obejcts with segment details that can be used for video trimming, and tweeting.
+ * */
+
+ $(function() {
+    'use strict';
+/////EXPORT
+var exportBtn=document.getElementById('export');
+console.log("here")
+exportBtn.onclick = function(){
+	//modifying button while exporting
+	document.getElementById("export").disabled = true;
+	document.getElementById("export").innerHTML = " Tweeting...";
+
+        confirm("Are you sure you want to tweet this video and text?");
+        //get in
+        var input = document.getElementById('input').value;//it's in tc 
+        //get out
+        var dur = document.getElementById('duration').value;
+        //get text
+        var text = document.getElementById('textQuote').value;
+        //videoSrc
+        var src = document.getElementById('transcriptVideo').currentSrc;
+
+        var tweet={};
+        // node-fluent-ffmpeg takes in seconds or timestamp string (with format [[hh:]mm:]ss[.xxx] so adding +".000" for milliseconds should do the trick(?)
+        tweet.input=input+".000";
+        tweet.dur=dur;
+        tweet.text = text;
+        tweet.src=src;
+        console.log(tweet);
+        // return false;
+
+
+        //MAKE AJAX request to trim, and upload video on user's behalf.
+        var currentUrl =  window.location.origin;
+         $.ajax({
+          type: 'POST',
+          // dataType: 'script',
+          url: currentUrl +'/tweet_quote/',
+          data: { "quoteDetails" : JSON.stringify(tweet)},
+          dataType: 'json',
+          async: true
+      }).done(function(data){
+        console.log("ajax response");
+        if(data.response=="sucess"){
+            alert("tweet sent sucessfully");
+        }else{
+           alert("There was a problem sending this tweet"); 
+        }
+        console.log(data);
+        //reset export button
+		document.getElementById("export").disabled = false;
+		document.getElementById("export").innerHTML = "  Tweet<b class='el el-video'></b> <b class='el el-quote-right-alt'>";
+      });//ajax
+
+
+ };//btn export
+
+
+});
+</script>

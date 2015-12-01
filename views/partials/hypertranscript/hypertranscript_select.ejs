@@ -227,53 +227,6 @@ TODO: refactor for clarity and legibility, need simpler way to do selection
        progressBarUpdate();
     });
 
-var exportBtn=document.getElementById('export');
-
-exportBtn.onclick = function(){
-        confirm("Are you sure you want to tweet this video and text?");
-        //get in
-        var input = document.getElementById('input').value;//it's in tc 
-        //get out
-        var dur = document.getElementById('duration').value;
-        //get text
-        var text = document.getElementById('textQuote').value;
-        //videoSrc
-        var src = document.getElementById('transcriptVideo').currentSrc;
-
-        var tweet={};
-        // node-fluent-ffmpeg takes in seconds or timestamp string (with format [[hh:]mm:]ss[.xxx] so adding +".000" for milliseconds should do the trick(?)
-        tweet.input=input+".000";
-        tweet.dur=dur;
-        tweet.text = text;
-        tweet.src=src;
-        console.log(tweet);
-        // return false;
-
-
-        //MAKE AJAX request to trim, and upload video on user's behalf.
-        var currentUrl =  window.location.origin;
-         $.ajax({
-          type: 'POST',
-          // dataType: 'script',
-          url: currentUrl +'/tweet_quote/',
-          data: { "quoteDetails" : JSON.stringify(tweet)},
-          dataType: 'json',
-          async: true
-      }).done(function(data){
-        console.log("ajax response");
-        if(data.response=="sucess"){
-            alert("tweet sent sucessfully");
-        }else{
-           alert("There was a problem sending this tweet"); 
-        }
-        console.log(data);
-      });//ajax
-
-
-
-    };
-
-
 
 });
 //////////////helper function convert seconds

@@ -22,7 +22,7 @@
     "twitter-media": "0.1.0"
   },
   "scripts": {
-    "start": "NODE_PATH=. node lib/server"
+    "start": "node lib/server"
   },
   "repository": {
     "type": "git",

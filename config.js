@@ -1,15 +1,19 @@
-// Load ENV from app.json
-var fs = require('fs');
-var enviromentVariables = fs.readFileSync("config.json",'utf8');
-configJson = JSON.parse(enviromentVariables);
+/**
+* Load ENV from app.json, dev once into local system
+* production once into heroku
+*/
+
+// var fs = require('fs');
+// var enviromentVariables = fs.readFileSync("config.json",'utf8');
+// configJson = JSON.parse(enviromentVariables);
 
 /**
 * assign ENV variables to development system enviroment.
 */
-var developmentKeys= configJson['development'];
-for (var key in developmentKeys){
-	process.env[key]=developmentKeys[key];
-}
+// var developmentKeys= configJson['development'];
+// for (var key in developmentKeys){
+// 	process.env[key]=developmentKeys[key];
+// }
 
 
 /** 
@@ -18,13 +22,13 @@ for (var key in developmentKeys){
 * and uses Library to make system calls from javascript
 */
 
-var exec = require('child_process').exec;
-var productionKeys = configJson['production'];
-for (var key in productionKeys){
-	var value = productionKeys[key];
-	// system call, to heroku to set ENV variables
-	exec("heroku config:set "+key+"="+value);
-}
+// var exec = require('child_process').exec;
+// var productionKeys = configJson['production'];
+// for (var key in productionKeys){
+// 	var value = productionKeys[key];
+// 	// system call, to heroku to set ENV variables
+// 	exec("heroku config:set "+key+"="+value);
+// }
 
 
 /**

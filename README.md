@@ -100,4 +100,7 @@ also thinking of providing option for user to upload own srt or to generate it w
 
 <!-- heroku config:set NODE_PATH=.  -->
 
-### Heroku multi buildbapck node/ffmpeg
+`app.json` contains the manifest style.
+
+<!-- 
+### Heroku multi buildbapck node/ffmpeg -->

@@ -104,3 +104,7 @@ also thinking of providing option for user to upload own srt or to generate it w
 
 <!-- 
 ### Heroku multi buildbapck node/ffmpeg -->
+
+
+### mondgodb on heroku
+`heroku addons:create mongolab:sandbox`

@@ -6,31 +6,38 @@ A Node based implementation of quickQuote, exporting to twitter video API. Impor
 [Go here for original ruby on rails implementation that exports html embed code](http://times.github.io/quickQuote/).
 
 
-## Config file
+## Enviroment Variables
 
-Config file is in git ignore, but the following code create one for your project. 
+`config.json` is in git ignore, but with the following code you can create one for your project. 
 
 ```js
-var config = {};
-
-config.appdetail 	= 	{appname: 'quickQuote'};
-config.appRootPath 	= 	__dirname;
-
-config.twitter = {};
-config.spokendata={};
-
-config.spokendata.baseurl 		=	process.env.SPOKENDATA_BASEURL 		|| "";
-config.spokendata.userid 		=	process.env.SPOKENDATA_USERID		|| ;
-config.spokendata.apitoken 		=	process.env.SPOKENDATA_APITOKEN		|| "";
-
-config.twitter.consumer_key 	=	process.env.TWITTER_CONSUMER_KEY 	|| "";
-config.twitter.consumer_secret 	= 	process.env.TWITTER_CONSUMER_SECRET || "";
-//config.twitter.token 			=	process.env.TWITTER_TOKEN 			|| "";
-//config.twitter.token_secret		= 	process.env.TWITTER_SECRET 			|| "";
-config.twitter.callbackURL		=	process.env.TWITTER_CALLBACK		|| 	"";
-
-module.exports = config;
+{
+	"development":
+	{ 
+	   	"SPOKENDATA_BASEURL": "https://spokendata.com/api",
+	    "SPOKENDATA_USERID": ,
+	    "SPOKENDATA_APITOKEN": "",
+	    "TWITTER_CONSUMER_KEY": "",
+	    "TWITTER_CONSUMER_SECRET": "",
+	    "TWITTER_CALLBACK": "http://127.0.0.1:3000/auth/twitter/callback",
+	    "NODE_PATH": "."
+	},
+	"production":
+	{ 
+	   	"SPOKENDATA_BASEURL": "https://spokendata.com/api",
+	    "SPOKENDATA_USERID": ,
+	    "SPOKENDATA_APITOKEN": "",
+	    "TWITTER_CONSUMER_KEY": "",
+	    "TWITTER_CONSUMER_SECRET": "",
+	    "TWITTER_CALLBACK": "http://getquickquote.com/auth/twitter/callback",
+	    "NODE_PATH": "."
+	}
+}
 ```
+
+
+[ENV variables for deployment on heroku](https://devcenter.heroku.com/articles/app-json-schema#env)
+
 
 ## Install dependencies
 
@@ -86,3 +93,11 @@ as the video file is 207.5 mb is not included in the git repo, and the `.gitigno
 The srt is provided temporarily before hooking up the speech to text api, as it would be what the speech to text api. 
 also thinking of providing option for user to upload own srt or to generate it with speech to text api...
 <!--  -->
+
+
+
+## Deployment 
+
+<!-- heroku config:set NODE_PATH=.  -->
+
+### Heroku multi buildbapck node/ffmpeg

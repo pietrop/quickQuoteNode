@@ -1,0 +1,28 @@
+{
+  "name": "quickQuote",
+  "description": "This app helps with making video quotes for twitter",
+  "keywords": [
+    "journalism",
+    "speech to text",
+    "quotes"
+  ],
+  "website": "https://getquickquote.herokuapp.com/",
+  "repository": "https://github.com/pietrop/quickQuoteNode",
+  "logo": "",
+  "success_url": "/",
+  "scripts": {
+    "postdeploy": "npm install"
+  },
+  "image": "heroku/nodejs",
+  "addons": [
+    "mongolab:shared-single-small"
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/brooks/heroku-buildpack-ffmpeg-x264"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+    }
+  ]
+}

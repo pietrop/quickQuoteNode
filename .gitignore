@@ -1,6 +1,5 @@
 #ignore config file
-config.js
-app.json
+config.json
 
 #heroku enviroment variabels
 .env

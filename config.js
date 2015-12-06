@@ -33,7 +33,8 @@
 * Make config with ENV available to app.
 * To make it convinient to work with ENV var in the app.
 */
-console.log(process.env.NODE_ENV)
+console.log(process.env.NODE_ENV);
+console.log(process.env.MONGOLAB_URI);
 
 var config = {};
 
@@ -53,7 +54,7 @@ config.twitter.consumer_key 	=	process.env.TWITTER_CONSUMER_KEY;
 config.twitter.consumer_secret 	= 	process.env.TWITTER_CONSUMER_SECRET;
 config.twitter.callbackURL		=	process.env.TWITTER_CALLBACK;
 
-config.db.path					=	process.env.MONGO_DB_PATH;
+config.db.path					=	process.env.MONGOLAB_URI;
 
 module.exports = config;
 

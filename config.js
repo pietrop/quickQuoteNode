@@ -51,7 +51,7 @@ var config = {};
  
 config.spokendata 	=	{};
 config.twitter 		= 	{};
-config.db 		= 	{};
+config.db 	 		= 	{};
 config.amazonS3 	=	{};
 
 config.appdetail 	= 	{appname: 'quickQuote'};

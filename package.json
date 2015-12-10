@@ -5,7 +5,9 @@
   "main": "",
   "dependencies": {
     "body-parser": "^1.14.1",
+    "connect": "^2.30.2",
     "connect-form": "^0.2.1",
+    "connect-mongo": "^0.8.2",
     "cookie-parser": "1.4.0",
     "ejs": "2.3.4",
     "express": "4.13.3",
@@ -17,6 +19,7 @@
     "multer": "^1.1.0",
     "passport": "0.3.2",
     "passport-twitter": "1.0.3",
+    "session-mongoose": "^0.5.2",
     "subtitles-parser": "0.0.2",
     "twit": "2.1.1",
     "twitter-media": "0.1.0"

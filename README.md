@@ -108,3 +108,21 @@ also thinking of providing option for user to upload own srt or to generate it w
 
 ### mondgodb on heroku
 `heroku addons:create mongolab:sandbox`
+
+
+### ffmpeg - heroku buildback
+the file `.buildbacks` defines the installations for ffmpeg
+
+```
+https://github.com/pietrop/heroku-buildpack-ffmpeg-x264
+https://github.com/heroku/heroku-buildpack-nodejs
+```
+
+From console, you can set the multi buildback to the application to install ffmpeg.
+
+```
+heroku buildpacks:set https://github.com/ddollar/heroku-buildpack-multi.git
+```
+
+
+`heroku run "ffmpeg -version"`

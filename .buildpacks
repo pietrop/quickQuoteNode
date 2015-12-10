@@ -1,5 +1,2 @@
 https://github.com/brooks/heroku-buildpack-ffmpeg-x264
-https://github.com/heroku/heroku-buildpack-nodejs
-
-
-
+https://github.com/heroku/heroku-buildpack-nodejs 

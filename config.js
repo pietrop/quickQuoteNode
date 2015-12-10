@@ -48,7 +48,7 @@ if (env == "development"){
 */
 
 var config = {};
-
+ 
 config.spokendata 	=	{};
 config.twitter 		= 	{};
 config.db 		= 	{};

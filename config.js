@@ -6,7 +6,7 @@ var env = process.env.NODE_ENV || 'development';
 if (env == "development"){
 	console.log("env-");
 	console.log(env);	
- 
+  
 	/**
 	* Load ENV from app.json, dev once into local system
 	* production once into heroku

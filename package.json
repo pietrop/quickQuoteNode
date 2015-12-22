@@ -4,6 +4,7 @@
   "description": "node version of quickQuote application.",
   "main": "",
   "dependencies": {
+    "async": "^1.5.0",
     "body-parser": "^1.14.1",
     "connect": "^2.30.2",
     "connect-form": "^0.2.1",
@@ -20,6 +21,7 @@
     "multer": "^1.1.0",
     "passport": "0.3.2",
     "passport-twitter": "1.0.3",
+    "request": "^2.67.0",
     "session-mongoose": "^0.5.2",
     "subtitles-parser": "0.0.2",
     "twit": "2.1.1",

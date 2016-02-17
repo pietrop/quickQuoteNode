@@ -1,5 +1,6 @@
 <!-- hypertranscript.ejs to render hypertranscript span tags iterating over hypertranscript's json object -->
 <div class="transcriptionContainer">
+	<% if(!hypertranscript.words.length == 0){%>
 <article class="transcription">
 	<!-- use <section> for different speakers if  -->
 	<p class="line">
@@ -12,5 +13,17 @@
 			<% } %>
 		<% }%>
 </article>
+
+<% }else{ %>
+<br>
+<div class="alert alert-dismissible alert-success">
+  Transcriptions being processed.
+</div>
+     <!-- Export button-->
+      <button type="button" class="btn btn-sm btn-success" id="check" data-loading-text="Checking...">  Check <b class="el el-video"></b> <b class="el el-align-justify"></b>
+    </button>
+
+<% } %>
+
 </div> <!-- transcriptionContainer -->
 <!-- transcript interactivity -->

@@ -1,0 +1,48 @@
+<!-- hypertranscript_retrieve_from_stt_api.ejs -->
+<script>
+/**
+ * AJAX Function to check whether the speech to text API
+ * has processed the video, and srt file is ready for retrieval.
+ * */
+
+ $(function() {
+    'use strict';
+    if (document.getElementById("check") != null){
+
+	    var checkBtn =document.getElementById('check');
+	    checkBtn.onclick = function(){
+	    	document.getElementById("check").disabled = true;
+			document.getElementById("check").innerHTML = " Checking...";
+
+		var currentUrl =  window.location.origin;
+		$.ajax({
+	          type: 'GET',
+	          url: currentUrl + '/retrieve_from_stt_api/'+hypertranscript.uid,//
+	          // data: { "uid" : JSON.stringify(hypertranscript.video.uid)},
+	          // dataType: 'json',
+	          async: true
+	      }).done(function(data){
+	      	if(data.response=="sucess"){
+	            console.log("response sent and received sucessfully");
+	            //use data.response.url to update hypetranscript.
+	            // refresh whole page?
+	            console.log("hypertranscript");
+	            console.log(data.hp);
+	            hypertranscript = data.hp;
+	            //Need a method to update hypertranscript in page without reloading.
+	            //ie call render text  + update video
+	        }else{
+	           console.log("Video Not ready ");
+	           console.log(data);
+	           //not ready try later 
+	           //maybe add time last checked message?
+	        }
+	        document.getElementById("export").disabled = false;
+			document.getElementById("export").innerHTML = " Check";
+
+	      });//ajax  
+	    }//On click
+	    
+	}//if 
+});
+</script>

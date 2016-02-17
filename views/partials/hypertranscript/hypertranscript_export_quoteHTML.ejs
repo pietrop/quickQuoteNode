@@ -5,17 +5,18 @@
  * makes ajax request passing quote obejcts with segment details that can be used for video trimming, and tweeting.
  * */
 
+
  $(function() {
     'use strict';
 /////EXPORT
-var exportBtn=document.getElementById('export');
+var exportBtn=document.getElementById('exportHTML');
 console.log("here")
 exportBtn.onclick = function(){
 	//modifying button while exporting
-	document.getElementById("export").disabled = true;
-	document.getElementById("export").innerHTML = " Tweeting...";
+	document.getElementById("exportHTML").disabled = true;
+	document.getElementById("exportHTML").innerHTML = " Exporting...";
 
-        confirm("Are you sure you want to tweet this video and text?");
+        confirm("Are you sure you want to export this video and text?");
         //get in
         var input = document.getElementById('input').value;//it's in tc 
         //get out
@@ -24,6 +25,8 @@ exportBtn.onclick = function(){
         var text = document.getElementById('textQuote').value;
         //videoSrc
         var src = document.getElementById('transcriptVideo').currentSrc;
+        //author
+        var author = document.getElementById('author').value;
 
         var tweet={};
         // node-fluent-ffmpeg takes in seconds or timestamp string (with format [[hh:]mm:]ss[.xxx] so adding +".000" for milliseconds should do the trick(?)
@@ -31,6 +34,8 @@ exportBtn.onclick = function(){
         tweet.dur=dur;
         tweet.text = text;
         tweet.src=src;
+        tweet.author = author;
+        tweet.n = Date.now();
         console.log(tweet);
         // return false;
 
@@ -40,22 +45,41 @@ exportBtn.onclick = function(){
          $.ajax({
           type: 'POST',
           // dataType: 'script',
-          url: currentUrl +'/tweet_quote/',
+          url: currentUrl +'/exporthtml_quote/',
           data: { "quoteDetails" : JSON.stringify(tweet)},
           dataType: 'json',
           async: true
       }).done(function(data){
         console.log("ajax response");
         if(data.response=="sucess"){
-            alert("tweet sent sucessfully");
+            alert("Exported sucessfully");
         }else{
-           alert("There was a problem sending this tweet"); 
+           alert("There was a problem exporting this video"); 
         }
-        // console.log(data);
-        
+        // console.log(JSON.stringify(data));
+
+        // var trimmedQuote = {}
+        // trimmedQuote.n = Date.now();
+        // // {n:, text:,author: , src:}
+        // trimmedQuote.text = data['result']['text'];
+        // trimmedQuote.src = data['result']['src'];
+        // trimmedQuote.author = data['result']['author']
+        // console.log(data['result']['src']);
+        // console.log(data['result']['text']);
+
+        // console.log(JSON.stringify(trimmedQuote));
         //reset export button
-		document.getElementById("export").disabled = false;
-		document.getElementById("export").innerHTML = "  Tweet<b class='el el-video'></b> <b class='el el-quote-right-alt'>";
+    		document.getElementById("exportHTML").disabled = false;
+    		document.getElementById("exportHTML").innerHTML = "  Export<b class='el el-video'></b> <b class='el el-quote-right-alt'>";
+
+        // html = new EJS({url: '/partials/hypertranscript/quoteHTMLtemplate.ejs'}).render(trimmedQuote);
+
+        $("#textAreaExport").val(data['result'])
+         $('#exportModal').modal('toggle');
+        console.log(data);
+
+        // console.log(html);
+
       });//ajax
 
 

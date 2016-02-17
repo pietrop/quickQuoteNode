@@ -12,6 +12,7 @@ if (env == "development"){
 	* production once into heroku
 	*/
 	var fs = require('fs');
+	// var enviromentVariables = fs.readFileSync("../../../../config.json",'utf8');
 	var enviromentVariables = fs.readFileSync("config.json",'utf8');
 	configJson = JSON.parse(enviromentVariables);
 
@@ -56,6 +57,7 @@ config.amazonS3 	=	{};
 
 config.appdetail 	= 	{appname: 'quickQuote'};
 config.appRootPath 	= 	__dirname;
+console.log(config.appRootPath);
 
 config.spokendata.baseurl 		=	process.env.SPOKENDATA_BASEURL; 		
 config.spokendata.userid 		=	process.env.SPOKENDATA_USERID;
@@ -64,6 +66,9 @@ config.spokendata.apitoken 		=	process.env.SPOKENDATA_APITOKEN;
 config.twitter.consumer_key 	=	process.env.TWITTER_CONSUMER_KEY;
 config.twitter.consumer_secret 	= 	process.env.TWITTER_CONSUMER_SECRET;
 config.twitter.callbackURL		=	process.env.TWITTER_CALLBACK;
+// // provided by users, usefull for testing
+// config.twitter.token  			=   process.env.TWITTER_ACCESS_TOKEN;
+// config.twitter.token_secret 	=	process.env.TWITTER_ACCESS_TOKEN_SECRET;
 
 config.db.path					=	process.env.MONGOLAB_URI;
 
